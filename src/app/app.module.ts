@@ -9,7 +9,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { AuthService } from './api/auth/auth.service';
+import { ServicesService } from './api/service/services.service';
+import { LoginService } from './api/login/login.service';
 @NgModule({
   declarations: [
     AppComponent,

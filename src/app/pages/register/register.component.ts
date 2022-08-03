@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
-
+import { Router } from '@angular/router';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,9 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   form:FormGroup;
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder,
+    private Http:HttpClient,
+    private router : Router) { }
   ngOnInit(): void {
     this.form = this.fb.group({
       name : '',
@@ -22,8 +26,20 @@ export class RegisterComponent implements OnInit {
   }
 
   submit(): void{
-    console.log(this.form.getRawValue());
+    this.Http.post('http://127.0.0.1:8000/api/users',this.form.getRawValue()).
+    subscribe(res => {
+    this.router.navigate(['/login'])
+/*       console.log(res);
+ */
+    });
+    
 
+  } 
+/* 
+  public submit(user : any): Observable<string> {
+    return this.Http.post<string>('http://127.0.0.1:8000/api/users', {}, {
+      observe: 'body', responseType: 'text'
+    });
   }
-
+  */
 }
